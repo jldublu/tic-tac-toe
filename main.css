@@ -5,13 +5,14 @@ body {
 
 .gameboard {
   display: grid;
-  grid-template-columns: repeat(3, 33%);
-  grid-template-rows: repeat(3, 20vh);
+  grid-template-columns: repeat(3, 25vh);
+  grid-template-rows: repeat(3, 25vh);
   justify-content: center;
   gap: 5px;
   background: black;
-  width: 60%;
+  width: 75vh;
   margin: 0 auto;
+  margin-top: 30px;
 }
 
 .game-over {
@@ -25,4 +26,9 @@ body {
   background: white;
   font-size: 10vh;
   cursor: pointer;
+}
+
+.result p {
+  text-align: center;
+  font-size: 6vh;
 }

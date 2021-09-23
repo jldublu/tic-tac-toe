@@ -1,8 +1,9 @@
 'use strict';
 
-let gameboard = (() => {
-  let gameboard = ['', '', '', '', '', '', '', '', ''];
+const displayController = (() => {
   const gameboardDiv = document.querySelector('.gameboard');
+
+
   const createBoard = () => {
     for (let i = 0; i < 9; i++) {
       const boardSquare = document.createElement('div');
@@ -12,15 +13,34 @@ let gameboard = (() => {
     }
   };
 
+  const displayGameOver = (resultText) => {
+    const resultDiv = document.querySelector('.result');
+    const resultP = document.createElement('p');
+    
+    resultP.textContent = resultText;
+    resultDiv.appendChild(resultP);
+
+    gameboardDiv.classList.add('game-over');
+  };
+
+  return {createBoard, displayGameOver, gameboardDiv}
+})();
+
+let gameboard = (() => {
+  let gameboard = ['', '', '', '', '', '', '', '', ''];
+
   const updateBoardSquare = (index, marker) => {
     const boardSquare = document.querySelector(`div[data-index='${index}']`);
     boardSquare.textContent = marker;
     gameboard.splice(index, 1, marker);
   };
 
+  const hasEmptySpaces = () => {
+    return gameboard.includes('');
+  }
+
   const isBoardSquareEmpty = (index) => {
-    const boardSquare = document.querySelector(`div[data-index='${index}']`);
-    return boardSquare.textContent === '';
+    return gameboard[index] === '';
   }
 
   const isThreeInARow = (marker) => {
@@ -37,16 +57,16 @@ let gameboard = (() => {
     return topRow || middleRow || bottomRow || leftColumn || middleColumn || rightColumn || diagonal1 || diagonal2;
   }
 
-  return {gameboardDiv, createBoard, isBoardSquareEmpty, isThreeInARow, updateBoardSquare};
+  return {hasEmptySpaces, isBoardSquareEmpty, isThreeInARow, updateBoardSquare};
 })();
 
 let game = (() => {
   const playGame = () => {
-    gameboard.createBoard();
+    displayController.createBoard();
     const player1 = playerFactory('player1', 'X', true);
     const player2 = playerFactory('player2', 'O', false);
 
-    gameboard.gameboardDiv.addEventListener('click', (event) => {
+    displayController.gameboardDiv.addEventListener('click', (event) => {
       let element = event.target;
       if (element.hasAttribute('data-index')) {
         const index = element.getAttribute('data-index');
@@ -58,11 +78,11 @@ let game = (() => {
           }
 
           if (gameboard.isThreeInARow(player1.marker)) {
-            displayWinner(player1);
-            gameboard.gameboardDiv.classList.add('game-over');
+            displayController.displayGameOver(`${player1.name} wins!`);
           } else if (gameboard.isThreeInARow(player2.marker)) {
-            displayWinner(player2);
-            gameboard.gameboardDiv.classList.add('game-over');
+            displayController.displayGameOver(`${player2.name} wins!`);
+          } else if (!gameboard.hasEmptySpaces()) {
+            displayController.displayGameOver('Tie!');
           }
   
           player1.isActive = !player1.isActive;
@@ -70,13 +90,6 @@ let game = (() => {
         }
       }
     });
-  }
-
-  const displayWinner = (player) => {
-    const resultDiv = document.querySelector('.result');
-    const resultP = document.createElement('p');
-    resultP.textContent = `${player.name} wins!`;
-    resultDiv.appendChild(resultP);
   }
 
   return {playGame};
