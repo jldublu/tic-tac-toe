@@ -32,3 +32,83 @@ body {
   text-align: center;
   font-size: 6vh;
 }
+
+[type=radio] { 
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+[type=radio] + span {
+  cursor: pointer;
+  font-size: 2.5rem;
+}
+
+[type=radio]:checked + span {
+  border: 1px solid black;
+}
+
+.modal {
+  display: none;
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto;   
+  background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 70%; 
+  text-align: center;
+}
+
+.modal-content h2 {
+  margin: 10px;
+  padding: 0;
+  font-size: 2.5rem;
+}
+
+.modal-content p {
+  margin: 0;
+  padding: 0;
+  font-size: 1.5rem;
+}
+
+.start-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.selection-container {
+  display: flex;
+  justify-content: space-around;
+  margin: 40px;
+}
+
+.selection {
+  display: flex;
+  flex-direction: column;
+}
+
+.selection p {
+  font-size: 2rem;
+  margin: 10px;
+}
+
+.name label {
+  font-size: 1.5rem;  
+}
+
+.marker {
+  display: flex;
+  justify-content: space-around;
+}

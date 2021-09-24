@@ -6,6 +6,51 @@
     <script src="script.js" defer></script>
   </head>
   <body>
+    <div class="modal">
+      <div class="modal-content">
+        <h2>Let's Play Tic Tac Toe!</h2>
+        <p>Please enter player names and select markers</p>
+        <form class="start-form">
+          <div class="selection-container">
+            <div class='selection'>
+              <p>Player 1</p>
+              <div class="name">
+                <label for="player1-name">Name</label> 
+                <input id="player1-name" type="text" name="player1-name" required>
+              </div>
+              <div class="marker">
+                <label>
+                  <input type="radio" name="player1-marker" checked>
+                  <span>X</span>
+                </label>
+                <label>
+                  <input type="radio" name="player1-marker">
+                  <span>O</span>
+                </label>
+              </div>
+            </div>
+            <div class="selection">
+              <p>Player 2</p>
+              <div class="name">
+                <label for="player2-name">Name</label>
+                <input id="player2-name"type="text" name="player2-name" required> 
+              </div>
+              <div class="marker">
+                <label>
+                  <input type="radio" name="player2-marker">
+                  <span>X</span>
+                </label>
+                <label>
+                  <input type="radio" name="player2-marker" checked>
+                  <span>O</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <button name="submit">Start</button>
+        </form>
+      </div>
+    </div>
     <main>
       <div class="result">
 

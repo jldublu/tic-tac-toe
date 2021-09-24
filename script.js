@@ -2,7 +2,12 @@
 
 const displayController = (() => {
   const gameboardDiv = document.querySelector('.gameboard');
+  const modal = document.querySelector('.modal');
+  const closeModal = document.querySelector('.close');
 
+  window.onload = () => {
+    modal.style.display = 'block';
+  };
 
   const createBoard = () => {
     for (let i = 0; i < 9; i++) {
