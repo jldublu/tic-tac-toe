@@ -3,7 +3,6 @@
 const displayController = (() => {
   const gameboardDiv = document.querySelector('.gameboard');
   const modal = document.querySelector('.modal');
-  const closeModal = document.querySelector('.close');
 
   window.onload = () => {
     modal.style.display = 'block';
@@ -15,6 +14,7 @@ const displayController = (() => {
       boardSquare.classList.add('board-square');
       boardSquare.setAttribute('data-index', i);
       gameboardDiv.appendChild(boardSquare);
+      gameboardDiv.classList.remove('hidden');
     }
   };
 
@@ -66,11 +66,17 @@ let gameboard = (() => {
 })();
 
 let game = (() => {
-  const playGame = () => {
-    displayController.createBoard();
-    const player1 = playerFactory('player1', 'X', true);
-    const player2 = playerFactory('player2', 'O', false);
+  let player1;
+  let player2;
 
+  const startGame = (player1Name, player1Marker, player2Name, player2Marker) => {
+    displayController.createBoard();
+
+    player1 = playerFactory(player1Name, player1Marker, true);
+    player2 = playerFactory(player2Name, player2Marker, false);
+  };
+
+  const playGame = () => {
     displayController.gameboardDiv.addEventListener('click', (event) => {
       let element = event.target;
       if (element.hasAttribute('data-index')) {
@@ -97,7 +103,30 @@ let game = (() => {
     });
   }
 
-  return {playGame};
+  return {playGame, startGame};
+})();
+
+let modalController = (() => {
+  let modal = document.querySelector('.modal');
+  let form = document.querySelector('.start-form');
+
+  //captures player info and starts game on submission
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const player1Name = document.getElementById('player1-name').value;
+    const player1Marker = document.querySelector('input[name="player1-marker"]:checked + span').textContent;
+
+    const player2Name = document.getElementById('player2-name').value;
+    const player2Marker = document.querySelector('input[name="player2-marker"]:checked + span').textContent;
+
+    game.startGame(player1Name, player1Marker, player2Name, player2Marker);
+    closeModal();
+  });
+
+  const closeModal = () => {
+    modal.style.display = 'none';
+  };
 })();
 
 const playerFactory = (name, marker, isActive) => {

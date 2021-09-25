@@ -15,6 +15,10 @@ body {
   margin-top: 30px;
 }
 
+.hidden {
+  display: none;
+}
+
 .game-over {
   pointer-events: none;
 }
@@ -46,7 +50,7 @@ body {
 }
 
 [type=radio]:checked + span {
-  border: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
 .modal {
@@ -106,6 +110,10 @@ body {
 
 .name label {
   font-size: 1.5rem;  
+}
+
+.name input {
+  margin: 5px;
 }
 
 .marker {
