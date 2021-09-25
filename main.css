@@ -5,12 +5,13 @@ body {
 
 .gameboard {
   display: grid;
-  grid-template-columns: repeat(3, 25vh);
-  grid-template-rows: repeat(3, 25vh);
+  grid-template-columns: repeat(3, minmax(100px, 13vw));
+  grid-template-rows: repeat(3, minmax(100px, 13vw));
   justify-content: center;
-  gap: 5px;
+  gap: 0.3vw;
   background: black;
-  width: 75vh;
+  width: 39vw;
+  min-width: 300px;
   margin: 0 auto;
   margin-top: 30px;
 }
@@ -28,7 +29,7 @@ body {
   justify-content: center;
   align-items: center;
   background: white;
-  font-size: 10vh;
+  font-size: 9vw;
   cursor: pointer;
 }
 
