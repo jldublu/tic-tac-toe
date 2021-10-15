@@ -3,9 +3,10 @@
 const displayController = (() => {
   const gameboardDiv = document.querySelector('.gameboard');
   const modal = document.querySelector('.modal');
+  const resultDiv = document.querySelector('.result');
 
   window.onload = () => {
-    modal.style.display = 'block';
+    displayModal();
   };
 
   const createBoard = () => {
@@ -19,16 +20,27 @@ const displayController = (() => {
   };
 
   const displayGameOver = (resultText) => {
-    const resultDiv = document.querySelector('.result');
-    const resultP = document.createElement('p');
-    
-    resultP.textContent = resultText;
-    resultDiv.appendChild(resultP);
-
+    resultDiv.textContent = resultText;
     gameboardDiv.classList.add('game-over');
   };
 
-  return {createBoard, displayGameOver, gameboardDiv}
+  const displayModal = () => {
+    modal.style.display = 'block';
+  };
+
+  const displayRestartButton = () => {
+    restartController.restartButton.classList.remove('hidden');
+  };
+
+  const hideElement = (element) => {
+    element.classList.add('hidden');
+  };
+
+  const removeResult = () => {
+    resultDiv.textContent = '';
+  };
+
+  return {createBoard, displayGameOver, displayModal, displayRestartButton, gameboardDiv, hideElement, removeResult}
 })();
 
 let gameboard = (() => {
@@ -62,7 +74,13 @@ let gameboard = (() => {
     return topRow || middleRow || bottomRow || leftColumn || middleColumn || rightColumn || diagonal1 || diagonal2;
   }
 
-  return {hasEmptySpaces, isBoardSquareEmpty, isThreeInARow, updateBoardSquare};
+  const reset = () => {
+    for (let i = 0, len = gameboard.length; i < len; i++) {
+      updateBoardSquare(i, '');
+    }
+  }
+
+  return {hasEmptySpaces, isBoardSquareEmpty, isThreeInARow, reset, updateBoardSquare};
 })();
 
 let game = (() => {
@@ -71,6 +89,7 @@ let game = (() => {
 
   const startGame = (player1Name, player1Marker, player2Name, player2Marker) => {
     displayController.createBoard();
+    displayController.displayRestartButton();
 
     player1 = playerFactory(player1Name, player1Marker, true);
     player2 = playerFactory(player2Name, player2Marker, false);
@@ -127,6 +146,19 @@ let modalController = (() => {
   const closeModal = () => {
     modal.style.display = 'none';
   };
+})();
+
+let restartController = (() => {
+  const restartButton = document.querySelector('.restart');
+
+  restartButton.addEventListener('click', () => {
+    displayController.removeResult();
+    displayController.gameboardDiv.classList.remove('game-over');
+
+    gameboard.reset();
+  });
+
+  return {restartButton};
 })();
 
 const playerFactory = (name, marker, isActive) => {

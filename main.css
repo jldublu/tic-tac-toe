@@ -3,16 +3,25 @@ body {
   padding: 0;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.restart {
+  width: 30%;
+}
+
 .gameboard {
   display: grid;
-  grid-template-columns: repeat(3, minmax(100px, 13vw));
-  grid-template-rows: repeat(3, minmax(100px, 13vw));
+  grid-template-columns: repeat(3, minmax(100px, 12vw));
+  grid-template-rows: repeat(3, minmax(100px, 12vw));
   justify-content: center;
   gap: 0.3vw;
   background: black;
-  width: 39vw;
+  width: 36vw;
   min-width: 300px;
-  margin: 0 auto;
   margin-top: 30px;
 }
 
@@ -33,9 +42,10 @@ body {
   cursor: pointer;
 }
 
-.result p {
+.result {
   text-align: center;
-  font-size: 6vh;
+  font-size: 3rem;
+  height: 4rem;
 }
 
 [type=radio] { 
