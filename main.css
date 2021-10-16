@@ -9,9 +9,21 @@ body {
   align-items: center;
 }
 
+.hidden {
+  display: none;
+}
+
+.result {
+  text-align: center;
+  font-size: 3rem;
+  height: 4rem;
+}
+
 .restart {
   width: 30%;
 }
+
+/******** Game Board ********/
 
 .gameboard {
   display: grid;
@@ -23,10 +35,6 @@ body {
   width: 36vw;
   min-width: 300px;
   margin-top: 30px;
-}
-
-.hidden {
-  display: none;
 }
 
 .game-over {
@@ -42,27 +50,7 @@ body {
   cursor: pointer;
 }
 
-.result {
-  text-align: center;
-  font-size: 3rem;
-  height: 4rem;
-}
-
-[type=radio] { 
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-[type=radio] + span {
-  cursor: pointer;
-  font-size: 2.5rem;
-}
-
-[type=radio]:checked + span {
-  border-bottom: 1px solid black;
-}
+/********* Modal *********/
 
 .modal {
   display: none;
@@ -115,7 +103,7 @@ body {
 }
 
 .selection p {
-  font-size: 2rem;
+  font-size: 1.8rem;
   margin: 10px;
 }
 
@@ -125,9 +113,39 @@ body {
 
 .name input {
   margin: 5px;
+  width: 65%;
 }
 
 .marker {
   display: flex;
   justify-content: space-around;
+}
+
+[type=radio] { 
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+[type=radio] + span {
+  cursor: pointer;
+  font-size: 2.5rem;
+}
+
+[type=radio]:checked + span {
+  border-bottom: 1px solid black;
+}
+
+.error {
+  height: 2rem;
+  color: red;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+[name="submit"] {
+  width: 33%;
+  font-size: 1rem;
+  margin: auto;
 }

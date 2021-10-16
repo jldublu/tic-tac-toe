@@ -95,39 +95,38 @@ let game = (() => {
     player2 = playerFactory(player2Name, player2Marker, false);
   };
 
-  const playGame = () => {
-    displayController.gameboardDiv.addEventListener('click', (event) => {
-      let element = event.target;
-      if (element.hasAttribute('data-index')) {
-        const index = element.getAttribute('data-index');
-        if (gameboard.isBoardSquareEmpty(index)) {
-          if (player1.isActive) {
-            gameboard.updateBoardSquare(index, player1.marker);
-          } else {
-            gameboard.updateBoardSquare(index, player2.marker);
-          }
-
-          if (gameboard.isThreeInARow(player1.marker)) {
-            displayController.displayGameOver(`${player1.name} wins!`);
-          } else if (gameboard.isThreeInARow(player2.marker)) {
-            displayController.displayGameOver(`${player2.name} wins!`);
-          } else if (!gameboard.hasEmptySpaces()) {
-            displayController.displayGameOver('Tie!');
-          }
-  
-          player1.isActive = !player1.isActive;
-          player2.isActive = !player2.isActive;
+  displayController.gameboardDiv.addEventListener('click', (event) => {
+    let element = event.target;
+    if (element.hasAttribute('data-index')) {
+      const index = element.getAttribute('data-index');
+      if (gameboard.isBoardSquareEmpty(index)) {
+        if (player1.isActive) {
+          gameboard.updateBoardSquare(index, player1.marker);
+        } else {
+          gameboard.updateBoardSquare(index, player2.marker);
         }
-      }
-    });
-  }
 
-  return {playGame, startGame};
+        if (gameboard.isThreeInARow(player1.marker)) {
+          displayController.displayGameOver(`${player1.name} wins!`);
+        } else if (gameboard.isThreeInARow(player2.marker)) {
+          displayController.displayGameOver(`${player2.name} wins!`);
+        } else if (!gameboard.hasEmptySpaces()) {
+          displayController.displayGameOver('Tie!');
+        }
+
+        player1.isActive = !player1.isActive;
+        player2.isActive = !player2.isActive;
+      }
+    }
+  });
+
+  return {startGame};
 })();
 
 let modalController = (() => {
   let modal = document.querySelector('.modal');
   let form = document.querySelector('.start-form');
+  let errorDiv = document.querySelector('.error');
 
   //captures player info and starts game on submission
   form.addEventListener('submit', (event) => {
@@ -139,8 +138,12 @@ let modalController = (() => {
     const player2Name = document.getElementById('player2-name').value;
     const player2Marker = document.querySelector('input[name="player2-marker"]:checked + span').textContent;
 
-    game.startGame(player1Name, player1Marker, player2Name, player2Marker);
-    closeModal();
+    if (player1Marker == player2Marker) {
+      errorDiv.textContent = 'Player markers should be unique.';
+    } else {
+      game.startGame(player1Name, player1Marker, player2Name, player2Marker);
+      closeModal();
+    }
   });
 
   const closeModal = () => {
@@ -164,5 +167,3 @@ let restartController = (() => {
 const playerFactory = (name, marker, isActive) => {
   return {name, marker, isActive};
 };
-
-game.playGame();
