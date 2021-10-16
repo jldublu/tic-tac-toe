@@ -9,10 +9,6 @@ body {
   align-items: center;
 }
 
-.hidden {
-  display: none;
-}
-
 .result {
   text-align: center;
   font-size: 3rem;
@@ -48,6 +44,10 @@ body {
   background: white;
   font-size: 9vw;
   cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }
 
 /********* Modal *********/
